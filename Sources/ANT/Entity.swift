@@ -215,7 +215,7 @@ struct Entity {
     
 }
 
-struct EntityStructure {
+public struct EntityStructure {
     let inputs: Int
     let outputs: Int
     let inputActivation: ActivationFunction

@@ -2,7 +2,7 @@
 
 import Dispatch
 
-class ANT {
+public class ANT {
     
     let entityAmount: Int
     var entities = [Entity]()
