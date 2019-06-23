@@ -7,7 +7,7 @@
 
 import Darwin
 
-struct Entity {
+public struct Entity {
     
     private let id: Int
     var network: Network
@@ -16,7 +16,7 @@ struct Entity {
     let maxHeight = 1024
     let maxDepth = 1024
     
-    init(_ id: Int, structure: EntityStructure) {
+    public init(_ id: Int, structure: EntityStructure) {
         self.id = id
         self.structure = structure
         self.network = Network(structure: self.structure)
@@ -40,18 +40,18 @@ struct Entity {
     /* Setters */
     
     /* Functions */
-    mutating func run(_ input: [[Float32]]) -> [[Float32]] {
+    public mutating func run(_ input: [[Float32]]) -> [[Float32]] {
         
         return network.compute(input)
     }
     
-    mutating func run(_ input: [Float32]) -> [Float32] {
+    public mutating func run(_ input: [Float32]) -> [Float32] {
         return network.compute(input)
     }
     
     mutating func alter() {
         if Float32.random(in: 0...100) <= 80 {
-
+            
             if Float32.random(in: 0...100) <= 5 {
                 alterRandomNetworkWeight()
             }
@@ -75,7 +75,7 @@ struct Entity {
                 addNewLayer()
             }
         }
-
+        
         if Float32.random(in: 0...100) <= 35 {
             alterRandomNetworkActivation()
         }
@@ -115,10 +115,10 @@ struct Entity {
         let from = NetworkAddress(fL, fromNodeId)
         let to = NetworkAddress(tL, toNodeId)
         /*
-        if from.nodeId == to.nodeId {
-            return
-        }
-        */
+         if from.nodeId == to.nodeId {
+         return
+         }
+         */
         self.network.addConnection(from, to)
     }
     
@@ -192,7 +192,7 @@ struct Entity {
             let randConnectionIndex = Int.random(in: 0..<self.network.connections.count)
             self.network.connections[randConnectionIndex].alterWeight(byAmount)
         }
- 
+        
     }
     
     mutating func alterRandomNetworkWeight() {
@@ -216,18 +216,26 @@ struct Entity {
 }
 
 public struct EntityStructure {
+    
     let inputs: Int
     let outputs: Int
     let inputActivation: ActivationFunction
     let outputActivation: ActivationFunction
+    
+    public init(inputs: Int, outputs: Int, inputActivation: ActivationFunction, outputActivation: ActivationFunction){
+        self.inputs = inputs
+        self.outputs = outputs
+        self.inputActivation = inputActivation
+        self.outputActivation = outputActivation
+    }
 }
 
 extension Entity: Comparable {
-    static func < (lhs: Entity, rhs: Entity) -> Bool {
+    public static func < (lhs: Entity, rhs: Entity) -> Bool {
         return lhs.score > rhs.score
     }
     
-    static func == (lhs: Entity, rhs: Entity) -> Bool {
+    public static func == (lhs: Entity, rhs: Entity) -> Bool {
         return lhs.score == rhs.score
     }
     

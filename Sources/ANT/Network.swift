@@ -11,7 +11,7 @@ struct Network {
     var connections = [NetworkPacket]()
     var currentLayerIndex = 1
     
-    init(structure: EntityStructure) {
+    public init(structure: EntityStructure) {
         let inputLayer = Layer(type: .input, id: -1, nodeAmount: structure.inputs, activation: structure.inputActivation)
         let outputLayer = Layer(type: .output, id: 0, nodeAmount: structure.outputs, activation: structure.outputActivation)
         self.layers += [inputLayer, outputLayer]
@@ -110,13 +110,13 @@ struct Network {
             }
             
             output += [outputNodeValues]
-
+            
             // Reset all node values.
             for layerId in 0..<self.layers.count {
                 self.layers[layerId].resetNodeValues()
             }
         }
-
+        
         return output
     }
     

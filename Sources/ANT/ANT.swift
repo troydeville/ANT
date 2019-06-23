@@ -5,7 +5,7 @@ import Dispatch
 public class ANT {
     
     let entityAmount: Int
-    var entities = [Entity]()
+    public var entities = [Entity]()
     
     var endScore: Float32 = 0.0
     var currentEntityWinners = [Entity]()
@@ -18,17 +18,17 @@ public class ANT {
     
     var canLeaveSection = false
     
-    init(_ entityAmount: Int) {
+    public init(_ entityAmount: Int) {
         self.entityAmount = entityAmount
     }
     
-    func initializeEntities(structure: EntityStructure) {
+    public func initializeEntities(structure: EntityStructure) {
         for i in 1...entityAmount {
             self.entities += [Entity(i, structure: structure)]
         }
     }
     
-    func train(input: [[Float32]], expected: [[Float32]], accuracy: Float32) {
+    public func train(input: [[Float32]], expected: [[Float32]], accuracy: Float32) {
         print("training . . .")
         
         // Split up entities into groups for multithreading

@@ -55,13 +55,13 @@ struct Activation {
     }
     
     /*
-    func passValue(_ x: Float32) -> Float32 {
-        if x < 0.0 {
-            return 0.0
-        }
-        return x
-    }
-    */
+     func passValue(_ x: Float32) -> Float32 {
+     if x < 0.0 {
+     return 0.0
+     }
+     return x
+     }
+     */
     
     func passValue(_ x: Float32) -> Float32 {
         
@@ -109,10 +109,10 @@ struct Activation {
             return precision / cosh(x * scale)
         }
     }
- 
+    
 }
 
-enum ActivationFunction {
+public enum ActivationFunction {
     case add
     case sigmoid
     case tanh
