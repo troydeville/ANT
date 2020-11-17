@@ -1,5 +1,4 @@
 // Adapting Neural Topology
-
 import Dispatch
 
 public class ANT {
@@ -17,6 +16,8 @@ public class ANT {
     let group = DispatchGroup()
     
     var canLeaveSection = false
+    
+    public var king: Entity?
     
     public init(_ entityAmount: Int) {
         self.entityAmount = entityAmount
@@ -122,7 +123,7 @@ public class ANT {
                         entitesThatAdapted_14 = self.adaptingCalculation(entities: entitiesToSend, input: input, expected: expected)
                     case 15:
                         entitesThatAdapted_15 = self.adaptingCalculation(entities: entitiesToSend, input: input, expected: expected)
-                    default: break
+                    default: break   
                     }
                 }
                 
@@ -226,7 +227,7 @@ public class ANT {
                 }
             }
             
-            doNAAC()
+            doANT()
             let learnStrength = abs(endScore - lastScore)
             if learnStrength < 0.01 && learnStrength > 0 {
                 execute -= 1
@@ -238,7 +239,7 @@ public class ANT {
         print("Best performer's connection count: \(self.entities[0].getConnectionCount())")
     }
     
-    private func doNAAC() {
+    private func doANT() {
         // Sort the entities by score.
         self.entities.sort()
         
@@ -257,7 +258,7 @@ public class ANT {
                 if currentEntityWinners[i].score <= self.entities[i].score {
                     currentEntityWinners[i] = self.entities[i]
                 }
-                
+ 
                 //currentEntityWinners[i] = self.entities[i]
             }
         }
@@ -278,7 +279,7 @@ public class ANT {
         endScore = self.entities[0].score
         //print("\u{001B}[2J", terminator: "Highest Score: \(endScore)%\n")
         self.interations += 1
-        print("\u{1B}[1A\u{1B}[KGeneration: \(self.interations), Completion: \(endScore)%")
+        print("\u{1B}[1A\u{1B}[KGeneration: \(self.interations), Score: \(endScore)")
     }
     
     private func adaptingCalculation(entities: [Entity], input: [[Float32]], expected: [[Float32]]) -> [Entity] {
@@ -305,19 +306,19 @@ public class ANT {
                     score += 1 - abs(expected[o1][o2] - output[o1][o2])
                     
                     /*
-                     //score += abs(expected[o1][o2] - output[o1][o2])
-                     score += (expected[o1][o2] - abs(expected[o1][o2] - output[o1][o2]))
-                     totalExpected += expected[o1][o2]
-                     */
+                    //score += abs(expected[o1][o2] - output[o1][o2])
+                    score += (expected[o1][o2] - abs(expected[o1][o2] - output[o1][o2]))
+                    totalExpected += expected[o1][o2]
+                    */
                 }
                 
             }
             /*
-             //print("Score: \(score)/\(totalExpected)")
-             //print("Total expected: \(totalExpected)")
-             //score = (Float32(expected.count * expected.first!.count) - score) / Float32(expected.count * expected.first!.count) * 100
-             score = (1 + (score / totalExpected)) / 2 * 100
-             */
+            //print("Score: \(score)/\(totalExpected)")
+            //print("Total expected: \(totalExpected)")
+            //score = (Float32(expected.count * expected.first!.count) - score) / Float32(expected.count * expected.first!.count) * 100
+            score = (1 + (score / totalExpected)) / 2 * 100
+            */
             
             score = score / (Float32(expected.count) * Float32(expected[0].count))
             
@@ -336,25 +337,54 @@ public class ANT {
     }
     
     /* CONTINUOUS NAAC */
-    func alterEntity() {
+    // 1. a
+    public func alterEntity() {
         self.entities[currentEntityIndex].alter()
     }
     
-    func learn(input: [Float32]) -> [Float32] {
+    // 1. b
+    public func alterEntity(entityIndex: Int) {
+        self.entities[entityIndex].alter()
+    }
+    
+    // 2.a
+    public func learn(input: [Float32]) -> [Float32] {
         return self.entities[currentEntityIndex].run(input)
     }
     
-    func appendCurrentEntityScore(_ score: Float32) {
+    // 2.b
+    public func learn(entityIndex: Int, input: [Float32]) -> [Float32] {
+        return self.entities[entityIndex].run(input)
+    }
+    
+    public func passThroughKing(input: [Float32]) -> [Float32] {
+        return self.king!.run(input)
+    }
+    
+    // 3.a
+    public func appendCurrentEntityScore(_ score: Float32) {
         self.entities[currentEntityIndex].score = self.entities[currentEntityIndex].score + score
     }
     
-    func nextEntity() {
+    // 3.b
+    public func appendCurrentEntityScore(entityIndex: Int, _ score: Float32) {
+        self.entities[entityIndex].score = score
+    }
+    
+    public func nextIteration() {
+        for e in 0..<self.entities.count {
+            alterEntity(entityIndex: e)
+        }
+        doANT()
+    }
+    
+    public func nextEntity() {
         if self.currentEntityIndex < self.entityAmount - 1 {
             self.currentEntityIndex += 1
         } else {
-            doNAAC()
+            doANT()
             self.currentEntityIndex = 0
         }
     }
-    
+
 }
