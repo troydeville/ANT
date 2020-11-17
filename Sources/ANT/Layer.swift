@@ -1,25 +1,24 @@
 //
 //  Layer.swift
-//  NAAC
-//
-//  Created by Troy Deville on 11/16/18.
+//  ANT
 //
 
-struct Layer {
+
+public struct Layer {
     
     var nodes = [Node]()
     let type: LayerType
-    let id: Int
-    var currentNodeIndex = 1
-    var activationFunction: ActivationFunction
+    public let id: Int
+    public var currentNodeIndex = 1
+    public var activationFunction: ActivationFunction
     
-    init(type: LayerType, id: Int, activation: ActivationFunction) {
+    public init(type: LayerType, id: Int, activation: ActivationFunction) {
         self.type = type
         self.id = id
         self.activationFunction = activation
     }
     
-    init(type: LayerType, id: Int, nodeAmount: Int, activation: ActivationFunction) {
+    public init(type: LayerType, id: Int, nodeAmount: Int, activation: ActivationFunction) {
         self.type = type
         self.id = id
         for _ in 1...nodeAmount {
@@ -45,7 +44,7 @@ struct Layer {
 }
 
 extension Layer: Comparable {
-    static func < (lhs: Layer, rhs: Layer) -> Bool {
+    public static func < (lhs: Layer, rhs: Layer) -> Bool {
         if (lhs.id == 0 && rhs.id > 0) || (lhs.id > 0 && rhs.id == 0) {
             //print("lhs = 0, rhs > 0")
             return lhs.id > rhs.id
@@ -54,12 +53,12 @@ extension Layer: Comparable {
         return lhs.id < rhs.id
     }
     
-    static func == (lhs: Layer, rhs: Layer) -> Bool {
+    public static func == (lhs: Layer, rhs: Layer) -> Bool {
         return lhs.id == rhs.id
     }
 }
 
-enum LayerType {
+public enum LayerType {
     case input
     case hidden
     case output
