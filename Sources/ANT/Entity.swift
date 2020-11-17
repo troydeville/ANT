@@ -1,18 +1,16 @@
 //
 //  Entity.swift
-//  NAAC
-//
-//  Created by Troy Deville on 11/16/18.
-//
+//  ANT
+
 
 public struct Entity {
     
     private let id: Int
-    var network: Network
-    var score: Float32 = 0.0
+    public var network: Network
+    public var score: Float32 = 0.0
     private let structure: EntityStructure
-    let maxHeight = 1024
-    let maxDepth = 1024
+    //let maxHeight = 1024
+    //let maxDepth = 1024
     
     public init(_ id: Int, structure: EntityStructure) {
         self.id = id
@@ -38,18 +36,18 @@ public struct Entity {
     /* Setters */
     
     /* Functions */
-    public mutating func run(_ input: [[Float32]]) -> [[Float32]] {
+    mutating func run(_ input: [[Float32]]) -> [[Float32]] {
         
         return network.compute(input)
     }
     
-    public mutating func run(_ input: [Float32]) -> [Float32] {
+    mutating func run(_ input: [Float32]) -> [Float32] {
         return network.compute(input)
     }
     
     mutating func alter() {
         if Float32.random(in: 0...100) <= 80 {
-            
+
             if Float32.random(in: 0...100) <= 5 {
                 alterRandomNetworkWeight()
             }
@@ -73,11 +71,11 @@ public struct Entity {
                 addNewLayer()
             }
         }
-        
+
         if Float32.random(in: 0...100) <= 35 {
             alterRandomNetworkActivation()
         }
-        
+       
     }
     
     mutating func addRandomConnection() {
@@ -113,10 +111,10 @@ public struct Entity {
         let from = NetworkAddress(fL, fromNodeId)
         let to = NetworkAddress(tL, toNodeId)
         /*
-         if from.nodeId == to.nodeId {
-         return
-         }
-         */
+        if from.nodeId == to.nodeId {
+            return
+        }
+        */
         self.network.addConnection(from, to)
     }
     
@@ -127,7 +125,7 @@ public struct Entity {
         var randomLayerIndex: Int
         if self.network.layers.count > 2 {
             randomLayerIndex = Int.random(in: 1..<self.network.layers.count - 1)
-            if self.network.layers[randomLayerIndex].currentNodeIndex > self.maxHeight { return }
+            //if self.network.layers[randomLayerIndex].currentNodeIndex > self.maxHeight { return }
             self.network.layers[randomLayerIndex].addNode()
             
             let fromNodeIndex = Int.random(in: 0..<self.network.layers[randomLayerIndex - 1].nodes.count)
@@ -156,7 +154,7 @@ public struct Entity {
     mutating func addNewLayer() {
         
         // If current layer count is eight, return
-        if self.network.currentLayerIndex > self.maxDepth { return }
+        //if self.network.currentLayerIndex > self.maxDepth { return }
         
         // One new layer is created, a node in the layer is also created.
         // Therefore, add a random connection from previous layer's node and to ahead layer's node.
@@ -190,7 +188,7 @@ public struct Entity {
             let randConnectionIndex = Int.random(in: 0..<self.network.connections.count)
             self.network.connections[randConnectionIndex].alterWeight(byAmount)
         }
-        
+ 
     }
     
     mutating func alterRandomNetworkWeight() {
@@ -214,13 +212,12 @@ public struct Entity {
 }
 
 public struct EntityStructure {
-    
     let inputs: Int
     let outputs: Int
     let inputActivation: ActivationFunction
     let outputActivation: ActivationFunction
     
-    public init(inputs: Int, outputs: Int, inputActivation: ActivationFunction, outputActivation: ActivationFunction){
+    public init(inputs: Int, outputs: Int, inputActivation: ActivationFunction, outputActivation: ActivationFunction) {
         self.inputs = inputs
         self.outputs = outputs
         self.inputActivation = inputActivation
