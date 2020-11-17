@@ -1,13 +1,12 @@
 //
 //  Node.swift
-//  NAAC
+//  ANT
 //
-//  Created by Troy Deville on 11/16/18.
 //
 
 import Foundation
 
-struct Node {
+public struct Node {
     
     let id: Int
     var activation: Activation
@@ -36,17 +35,17 @@ struct Node {
 
 extension Node: Comparable {
     
-    static func < (lhs: Node, rhs: Node) -> Bool {
+    public static func < (lhs: Node, rhs: Node) -> Bool {
         return lhs.id < rhs.id
     }
     
-    static func == (lhs: Node, rhs: Node) -> Bool {
+    public static func == (lhs: Node, rhs: Node) -> Bool {
         return lhs.id == rhs.id
     }
     
 }
 
-struct Activation {
+public struct Activation {
     
     var activationFunction: ActivationFunction
     
@@ -55,13 +54,13 @@ struct Activation {
     }
     
     /*
-     func passValue(_ x: Float32) -> Float32 {
-     if x < 0.0 {
-     return 0.0
-     }
-     return x
-     }
-     */
+    func passValue(_ x: Float32) -> Float32 {
+        if x < 0.0 {
+            return 0.0
+        }
+        return x
+    }
+    */
     
     func passValue(_ x: Float32) -> Float32 {
         
@@ -109,7 +108,6 @@ struct Activation {
             return precision / cosh(x * scale)
         }
     }
-    
 }
 
 public enum ActivationFunction {
@@ -128,7 +126,7 @@ public enum ActivationFunction {
     case sech
 }
 
-func RandomActivationFunction() -> ActivationFunction {
+public func RandomActivationFunction() -> ActivationFunction {
     let rand = Int.random(in: 1...13)
     switch rand {
     case 1:
