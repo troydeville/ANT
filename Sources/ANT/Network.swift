@@ -1,14 +1,13 @@
 //
 //  Network.swift
-//  NAAC
+//  ANT
 //
-//  Created by Troy Deville on 11/16/18.
 //
 
-struct Network {
+public struct Network {
     
-    var layers = [Layer]()
-    var connections = [NetworkPacket]()
+    public var layers = [Layer]()
+    public var connections = [NetworkPacket]()
     var currentLayerIndex = 1
     
     public init(structure: EntityStructure) {
@@ -110,13 +109,13 @@ struct Network {
             }
             
             output += [outputNodeValues]
-            
+
             // Reset all node values.
             for layerId in 0..<self.layers.count {
                 self.layers[layerId].resetNodeValues()
             }
         }
-        
+
         return output
     }
     
@@ -194,10 +193,10 @@ struct Network {
 
 /* Routing */
 
-struct NetworkPacket {
-    var from: NetworkAddress
-    var to: NetworkAddress
-    var weight = Float32.random(in: -1.0...1.0)
+public struct NetworkPacket {
+    public var from: NetworkAddress
+    public var to: NetworkAddress
+    public var weight = Float32.random(in: -1.0...1.0)
     
     init(_ from: NetworkAddress, _ to: NetworkAddress) {
         self.from = from
@@ -212,17 +211,17 @@ struct NetworkPacket {
 
 extension NetworkPacket: Comparable {
     
-    static func < (lhs: NetworkPacket, rhs: NetworkPacket) -> Bool {
+    public static func < (lhs: NetworkPacket, rhs: NetworkPacket) -> Bool {
         return lhs.from < rhs.from
     }
     
-    static func == (lhs: NetworkPacket, rhs: NetworkPacket) -> Bool {
+    public static func == (lhs: NetworkPacket, rhs: NetworkPacket) -> Bool {
         return (lhs.from == rhs.from) && (lhs.to == rhs.to)
     }
     
 }
 
-struct NetworkAddress {
+public struct NetworkAddress {
     let layerId: Int
     let nodeId: Int
     
@@ -235,7 +234,7 @@ struct NetworkAddress {
 
 extension NetworkAddress: Comparable {
     
-    static func < (lhs: NetworkAddress, rhs: NetworkAddress) -> Bool {
+    public static func < (lhs: NetworkAddress, rhs: NetworkAddress) -> Bool {
         if (lhs.layerId == rhs.layerId) {
             if lhs.nodeId == rhs.nodeId {
                 return lhs.nodeId > rhs.nodeId
@@ -245,7 +244,7 @@ extension NetworkAddress: Comparable {
         return lhs.layerId < rhs.layerId
     }
     
-    static func == (lhs: NetworkAddress, rhs: NetworkAddress) -> Bool {
+    public static func == (lhs: NetworkAddress, rhs: NetworkAddress) -> Bool {
         return (lhs.layerId == rhs.layerId) && (lhs.nodeId == rhs.nodeId)
     }
     
