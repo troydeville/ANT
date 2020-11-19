@@ -372,10 +372,10 @@ public class ANT {
     }
     
     public func nextIteration() {
+        doANT()
         for e in 0..<self.entities.count {
             alterEntity(entityIndex: e)
         }
-        doANT()
     }
     
     public func nextEntity() {
