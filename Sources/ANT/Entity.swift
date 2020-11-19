@@ -52,7 +52,7 @@ public struct Entity {
                 alterRandomNetworkWeight()
             }
             for _ in 1...1 {
-                alterRandomNetworkWeight(0.5 * Float32.random(in: -1...1))
+                alterRandomNetworkWeight(0.5 * Float32.random(in: -0.03...0.03))
             }
             
         }
