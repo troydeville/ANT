@@ -1,8 +1,6 @@
 # ANT - Adapting Neural Topology
 
 This implementation is a Neuralevolution (NE) type approach. 
-  
-NEAT stands for Neural Evolution of Augmenting Topologies. Just as our brain uses neurons to interpret information, this algorithm searches spaces minimally by creating new connections competitively until a solution is found.
 
 
 
