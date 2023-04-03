@@ -64,7 +64,8 @@ public class ANT {
         }
         var lastScore: Float32 = 0.0
         var execute = 5
-        while endScore < (accuracy) && self.interations < 100 && execute > 0 {
+//        while endScore < (accuracy) && self.interations < 100 && execute > 0 {
+        while endScore < (accuracy) {
             lastScore = endScore
             var entitesThatAdapted_0 = [Entity]()
             var entitesThatAdapted_1 = [Entity]()
@@ -336,7 +337,7 @@ public class ANT {
         return [[Float32]]()
     }
     
-    /* CONTINUOUS NAAC */
+    /* CONTINUOUS ANT */
     // 1. a
     public func alterEntity() {
         self.entities[currentEntityIndex].alter()
