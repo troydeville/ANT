@@ -46,35 +46,45 @@ public struct Entity {
     }
     
     mutating func alter() {
+//        if Float32.random(in: 0...100) <= 80 {
+//
+//            if Float32.random(in: 0...100) <= 5 {
+//                alterRandomNetworkWeight()
+//            }
+//            for _ in 1...1 {
+//                alterRandomNetworkWeight(0.5 * Float32.random(in: -0.03...0.03))
+//            }
+//
+//        }
         if Float32.random(in: 0...100) <= 80 {
-
-            if Float32.random(in: 0...100) <= 5 {
-                alterRandomNetworkWeight()
-            }
-            for _ in 1...1 {
-                alterRandomNetworkWeight(0.5 * Float32.random(in: -0.03...0.03))
-            }
-            
+            alterRandomNetworkWeight()
         }
         // Original 80, 2, 10, 25
         //2,2,5,25
         //80,1,1,25?
         
-        if Float32.random(in: 0...100) <= 30 {
+        if Float32.random(in: 0...100) <= 50 {
             addRandomConnection()
         }
         
-        if Float32.random(in: 0...100) <= 8 {
-            if Float32.random(in: 0...100) <= 30 {
-                addRandomNode()
-            } else {
-                addNewLayer()
-            }
+        if Float32.random(in: 0...100) <= 30 {
+            addRandomNode()
         }
+        if Float32.random(in: 0...100) <= 3 {
+            addNewLayer()
+        }
+        
+//        if Float32.random(in: 0...100) <= 8 {
+//            if Float32.random(in: 0...100) <= 30 {
+//                addRandomNode()
+//            } else {
+//                addNewLayer()
+//            }
+//        }
 
-        if Float32.random(in: 0...100) <= 35 {
-            alterRandomNetworkActivation()
-        }
+//        if Float32.random(in: 0...100) <= 35 {
+//            alterRandomNetworkActivation()
+//        }
        
     }
     

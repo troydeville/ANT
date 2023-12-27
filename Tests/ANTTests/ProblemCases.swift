@@ -29,7 +29,7 @@ final class ProblemCases: XCTestCase {
     func testXORSingleThread() throws {
 
         let xor = ANT(512)
-        xor.initializeEntities(structure: EntityStructure(inputs: 2, outputs: 1, inputActivation: .tanh, outputActivation: .tanh))
+        xor.initializeEntities(structure: EntityStructure(inputs: 2, outputs: 1, inputActivation: .add, outputActivation: .sine))
         
         let inputs: [[Float32]] = [[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]]
         let expOutput: [[Float32]] = [[0.0], [1.0], [1.0], [0.0]]
@@ -81,8 +81,8 @@ final class ProblemCases: XCTestCase {
         let xorExpectedOutput: [[Float]] = [[0], [1], [1], [0]]
         
         
-        let ant = ANT(512)
-        ant.initializeEntities(structure: .init(inputs: 2, outputs: 1, inputActivation: .tanh, outputActivation: .tanh))
+        let ant = ANT(2048)
+        ant.initializeEntities(structure: .init(inputs: 2, outputs: 1, inputActivation: .add, outputActivation: .tanh))
         ant.train(
             input: xorInputData,
             expected: xorExpectedOutput,
@@ -100,8 +100,8 @@ final class ProblemCases: XCTestCase {
         [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0],
         ]
         
-        let ant = ANT(1024)
-        ant.initializeEntities(structure: .init(inputs: inputData[0].count, outputs: expected[0].count, inputActivation: .tanh, outputActivation: .tanh))
+        let ant = ANT(2048)
+        ant.initializeEntities(structure: .init(inputs: inputData[0].count, outputs: expected[0].count, inputActivation: .add, outputActivation: .tanh))
         ant.train(
             input: inputData,
             expected: expected,

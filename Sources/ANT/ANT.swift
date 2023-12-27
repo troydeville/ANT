@@ -243,6 +243,7 @@ public class ANT {
     private func doANT() {
         // Sort the entities by score.
         self.entities.sort()
+        self.king = entities[0]
         
         //let storePercent = 0.6 - (exp(0.0038 * endScore) - 1)
         //let storePercent = 0.7 - (exp(0.0050 * endScore) - 1)
@@ -280,7 +281,8 @@ public class ANT {
         endScore = self.entities[0].score
         //print("\u{001B}[2J", terminator: "Highest Score: \(endScore)%\n")
         self.interations += 1
-        print("\u{1B}[1A\u{1B}[KGeneration: \(self.interations), Score: \(endScore)")
+//        print("\u{1B}[1A\u{1B}[KGeneration: \(self.interations), Score: \(endScore)")
+        print("Generation: \(self.interations), Score: \(endScore)")
     }
     
     private func adaptingCalculation(entities: [Entity], input: [[Float32]], expected: [[Float32]]) -> [Entity] {
